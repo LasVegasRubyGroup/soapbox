@@ -17,12 +17,20 @@ class User < ActiveRecord::Base
 
   def self.find_for_meetup_oauth(auth, signed_in_resource = nil)
     user = User.where(provider: auth.provider, uid: auth.uid).first
+
+    r = Nestful.get("https://api.meetup.com/2/profiles", format: :json, params: { group_urlname: 'las-vegas-ruby-on-rails', member_id: auth.uid, key: ENV['MEETUP_API_KEY'] })
+    role = r['results'][0]['role']
+    organizer = (role == 'Co-Organizer' || role == 'Organizer')
+
     unless user
       user = User.create(name: auth.info.name,
                          provider: auth.provider,
                          uid: auth.uid,
-                         password: Devise.friendly_token[0,20])
+                         organizer: true)
     end
+
+    user.update_attribute(:organizer, organizer)
+
     user
   end
 

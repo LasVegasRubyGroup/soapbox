@@ -12,9 +12,10 @@ gem 'draper'
 gem 'redcarpet'
 gem 'active_link_to'
 gem 'simple_form'
-gem "therubyracer"
-gem "less-rails"
+gem 'therubyracer'
+gem 'less-rails'
 gem 'twitter-bootstrap-rails'
+gem 'nestful'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
