@@ -7,7 +7,7 @@ class TimeSlot < ActiveRecord::Base
   validates :topic_id, presence: true
   validates :presenter_id, presence: true
 
-  attr_accessible :ends_at, :presenter_id, :starts_at
+  attr_accessible :topic_id, :ends_at, :presenter_id, :starts_at
 
   def give_points
     topic.give_points_to(presenter)

@@ -14,11 +14,7 @@ class Topic < ActiveRecord::Base
     state :selected
     state :closed
 
-    after_transition on: :close do |topic, transition|
-      # give_points
-    end
-
-    event :selected do
+    event :select do
       transition to: :selected, from: [:open]
     end
 
@@ -39,7 +35,29 @@ class Topic < ActiveRecord::Base
     order('created_at DESC')
   end
 
+  def give_points_to(presenter)
+    [
+      { name: user.name, points: user.earn_points!(suggestion_points) },
+      { name: presenter.name, points: presenter.earn_points!(presenter_points)}
+    ]
+  end
+
   def votes
     voters.count
+  end
+
+  alias :points :votes
+
+  def mark_as_selected!(meeting)
+    self.update_attribute(meeting_id: id)
+    select!
+  end
+
+  def suggestion_points
+    points / 4
+  end
+
+  def presenter_points
+    points - suggestion_points
   end
 end

@@ -51,4 +51,8 @@ class User < ActiveRecord::Base
     return false if volunteered_for?(topic)
     topic.volunteers.create(user_id: id)
   end
+
+  def earn_points!(earned)
+    self.increment(:points, earned)
+  end
 end
