@@ -4,8 +4,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable,
-         :rememberable, :trackable, :omniauthable, :omniauth_providers => [:meetup]
+  devise :registerable, :rememberable, :trackable, :omniauthable, :omniauth_providers => [:meetup]
 
   validates :name, presence: true
 
@@ -25,9 +24,8 @@ class User < ActiveRecord::Base
     end
 
     profile = Meetup::Profile.get(auth.uid)
-    if (profile['role'] == 'Co-Organizer' || profile['role'] == 'Organizer')
-      user.update_attribute(:organizer, organizer)
-    end
+    organizer = (profile['role'] == 'Co-Organizer' || profile['role'] == 'Organizer')
+    user.update_attribute(:organizer, organizer)
 
     user
   end
@@ -51,6 +49,7 @@ class User < ActiveRecord::Base
   end
 
   def earn_points!(earned)
-    self.increment(:points, earned)
+    self.update_attribute(:points, points + earned)
+    earned
   end
 end

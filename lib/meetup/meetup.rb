@@ -32,4 +32,20 @@ module Meetup
       JSON.parse(Client.get('/2/profiles', options))['results'][0]
     end
   end
+
+  class Member
+    def self.all(options = {})
+      options = { group_urlname: Client.group, offset: 0 }.merge(options)
+
+      results = []
+      while true
+        response = JSON.parse(Client.get('/2/members', options))
+        break if response['results'].empty?
+        results += response['results']
+        options[:offset] += 1
+      end
+
+      results
+    end
+  end
 end
