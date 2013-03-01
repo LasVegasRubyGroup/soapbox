@@ -1,4 +1,5 @@
 .env
+.powrc
 .bundle
 .rvmrc
 .DS_Store
