@@ -2,4 +2,4 @@
 
 %ul
 - @meetings.each do |meeting|
-  %li= link_to(meeting.date.to_formatted_s(:long), meeting_path(meeting))
+  %li= link_to(meeting.date.to_formatted_s(:long) + " (#{meeting.state})", meeting_path(meeting))

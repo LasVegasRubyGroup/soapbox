@@ -38,7 +38,7 @@ class MeetingsController < ApplicationController
   end
 
   def finalize
-    result = @meeting.finalize
+    result = @meeting.finalize_and_reward!
     redirect_to(leaderboard_path, notice: point_allocation(result))
   end
 

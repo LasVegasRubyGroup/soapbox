@@ -2,22 +2,22 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 
-gem 'sqlite3'
 gem 'jquery-rails'
 gem 'state_machine'
 gem 'devise'
 gem 'omniauth-meetup'
 gem 'haml'
-gem 'draper'
+gem 'draper', '0.18.0'
 gem 'redcarpet'
 gem 'active_link_to'
 gem 'simple_form'
-gem "therubyracer"
-gem "less-rails"
+gem 'therubyracer'
+gem 'less-rails'
 gem 'twitter-bootstrap-rails'
+gem 'nestful'
 
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
+  gem 'sass-rails', '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
   gem 'bootstrap-sass-rails'
@@ -26,6 +26,7 @@ group :assets do
 end
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'rspec-rails', '~> 2.0'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'shoulda-matchers'
@@ -37,4 +38,8 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'pry-rails'
+end
+
+group :production do
+  gem 'pg'
 end

@@ -18,10 +18,10 @@ class TopicDecorator < Draper::Base
   end
 
   def user_name
-    'TODO'
+    topic.user.name
   end
 
   def volunteer_names
-    ['TODO']
+    topic.volunteers.collect(&:user).collect(&:name)
   end
 end
