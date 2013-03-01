@@ -12,8 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+<<<<<<< HEAD
 //= require jquery.ui.all
 //= require bootstrap
 //= require twitter/bootstrap
 
 //= require_tree
+=======
+//= require twitter/bootstrap
+//= require_tree .
+>>>>>>> 1096a31a87a64f3db9ea5eb5f4f2a06a54eadf99
