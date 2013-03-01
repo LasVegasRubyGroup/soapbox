@@ -58,6 +58,6 @@ class Topic < ActiveRecord::Base
   end
 
   def presenter_points
-    points - suggestion_points
+    5 + (points - suggestion_points)
   end
 end
