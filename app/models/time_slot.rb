@@ -9,7 +9,7 @@ class TimeSlot < ActiveRecord::Base
 
   attr_accessible :ends_at, :presenter_id, :starts_at
 
-  # def give_points
-  #   topic.give_points_to(presenter)
-  # end
+  def give_points
+    topic.give_points_to(presenter)
+  end
 end
