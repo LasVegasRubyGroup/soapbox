@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 
-gem 'sqlite3'
 gem 'jquery-rails'
 gem 'state_machine'
 gem 'devise'
@@ -27,6 +26,7 @@ group :assets do
 end
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'rspec-rails', '~> 2.0'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'shoulda-matchers'
@@ -38,4 +38,8 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'pry-rails'
+end
+
+group :production do
+  gem 'pg'
 end
