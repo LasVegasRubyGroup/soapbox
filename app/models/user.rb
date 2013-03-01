@@ -10,6 +10,10 @@ class User < ActiveRecord::Base
 
   attr_accessible :name, :provider, :uid, :email, :password, :password_confirmation, :remember_me, :organizer
 
+  def self.with_points
+    where('points > 0')
+  end
+
   def self.by_points
     order('points DESC')
   end

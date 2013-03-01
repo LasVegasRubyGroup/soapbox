@@ -3,6 +3,6 @@ class InfoController < ApplicationController
   end
 
   def leaderboard
-    @users = User.by_points
+    @users = User.with_points.by_points
   end
 end
