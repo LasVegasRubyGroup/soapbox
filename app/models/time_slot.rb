@@ -5,7 +5,7 @@ class TimeSlot < ActiveRecord::Base
 
   validates :starts_at, presence: true
   validates :ends_at, presence: true
-  validates :meeting_id, presence: true
+  # validates :meeting_id, presence: true
   # validates :topic_id, presence: true
   # validates :presenter_id, presence: true
 
