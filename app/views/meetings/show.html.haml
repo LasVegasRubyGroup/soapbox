@@ -1,0 +1,6 @@
+%h1 @LVRUG Meetup for #{@meeting.date}
+
+= render(TimeSlotDecorator.decorate(@meeting.time_slots))
+
+= current_user.edit_meeting_link(@meeting)
+= current_user.finalize_meeting_link(@meeting)

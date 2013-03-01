@@ -1,0 +1,5 @@
+//for topic show view
+$('#topic').replaceWith('<%= j render "full_topic", topic: @topic %>')
+
+//for topic index view
+$('.well[data-id="<%= @topic.id %>"]').replaceWith('<%= j render @topic %>')

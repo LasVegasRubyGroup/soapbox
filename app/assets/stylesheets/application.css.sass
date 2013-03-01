@@ -1,0 +1,158 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+
+ *= require 'twitter/bootstrap'
+ *= require_self
+
+ */
+
+@import twitter/bootstrap
+
+body
+  padding-top: 80px
+
+@import twitter/bootstrap/responsive
+
+
+.badge
+  font-size: 20px
+  padding: 7px
+
+.well
+  border-radius: 0px
+  background-color: transparentize(black, 0.90)
+  color: black
+  margin: 0px
+  margin-bottom: 2px
+  border: none
+
+  a
+    color: black
+
+.alert
+  border-radius: 0px
+
+.btn
+  border-radius: 0px
+
+.badge
+  border-radius: 0px
+
+.label
+  border-radius: 0px
+  font-size: 15px
+  padding: 10px
+
+
+$navbarBackgroundHighlight: transparentize(black, 0.3)
+$navbarBackgroundHighlight: transparentize(black, 0.3)
+$textColor: white
+$linkColor: white
+$ruby_red: #b81d30
+
+$btnPrimaryBackground: $ruby_red
+
+.logo
+  font-size: 40px
+  padding-top: 20px
+  padding-bottom: 10px
+  color: white
+  text-decoration: none !important
+  color: white
+
+  img
+    margin-top: -10px
+
+  &:hover
+    color: white
+
+body
+  background-color: #dfdac6
+  font-family: courier
+
+.form-actions
+  background-color: transparent
+  border-top: none
+
+.scrolling_list
+  height: 600px
+  overflow-y: scroll
+  font-size: 20px
+
+.simple_topic
+  padding-top: 15px
+
+.topic_title_container
+  position: relative
+
+.navbar-inner
+  background-image: url('diagmonds.png')
+
+.navbar
+  font-size: 15px
+  border-bottom: $ruby_red 1px solid
+
+  ul.nav li a
+    color: $ruby_red
+    margin-top: 20px
+    text-shadow: none
+    font-size: 18px
+
+  ul.nav li a:hover
+    color: lighten($ruby_red, 10%)
+
+.popover-content
+  color: black
+  a
+    color: black
+
+.well
+  color: black
+  padding: 10px
+
+  a
+    color: black
+
+.table td
+  border-top: transparentize(white, 0.85) 1px solid
+  background-color: transparentize(black, 0.90)
+
+.table th
+  border-top: transparentize(white, 0.85) 1px solid
+  background-color: transparentize(green, 0.5)
+
+.fine_print
+  font-size: 16px
+  padding-top: 10px
+
+.nav-pills ul
+  border-bottom: solid 1px #000
+
+.nav-pills .active > a
+  background-color: lighten($ruby_red, 5%)
+
+.nav-pills .active > a:hover
+  background-color: lighten($ruby_red, 5%)
+
+.nav-pills > li > a:hover
+  background-color: lighten(#dfdac6, 5%)
+
+footer
+  border-top: 1px solid $ruby_red
+  padding-top: 20px
+  margin-bottom: 80px
+  margin-top: 20px
+
+legend
+  color: black
+  background-color: transparentize(black, 0.90)
+  padding: 10px
+
+

@@ -1,0 +1,8 @@
+= simple_form_for @topic, html: { class: 'form-horizontal' } do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title, hint: 'Keep the title it short and to the point.', input_html: {style: 'width: 90%' }, label: 'Topic Title'
+    = f.input :description, as: :text, :input_html => { style: 'width: 90%' }, hint: 'We trust you: description allows links. :)', label: 'Topic Description'
+  .form-actions
+    = f.button :submit

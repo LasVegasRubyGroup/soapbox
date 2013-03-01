@@ -1,0 +1,21 @@
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      %a.btn.btn-navbar{ "data-target" => ".nav-collapse", "data-toggle" => "collapse" }
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+
+      = link_to(image_tag('sticker_small_2012.png') + " @LVRUG" , root_path, class: 'logo pull-left')
+
+      .container.nav-collapse
+        %ul.nav.pull-right
+          %li= link_to('Next Meetup', 'http://meetup.lvrug.org', target: 'blank')
+          %li= link_to('#VegasTech Bulletin Board', 'http://news.lvrug.org', target: 'blank')
+          %li= link_to('Meetings', meetings_path)
+          %li= link_to('Topics', topics_path)
+          %li= current_user.new_meeting_link
+          %li= current_user.session_control
+
+.visible-desktop
+  .hack-margin

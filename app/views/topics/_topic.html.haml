@@ -1,0 +1,24 @@
+.well{ data: { id: topic.id } }
+  .row
+    .span12
+      %h3= topic.link
+  .row
+    .span5
+      %span.badge.badge-inverse= pluralize(topic.votes, 'Vote')
+
+      = current_user.vote_link(topic)
+      = current_user.volunteer_link(topic)
+      = current_user.edit_topic_link(topic)
+      
+      %p.fine_print
+        = "Suggested by #{topic.user_name}"
+        |
+        = link_to(pluralize(topic.volunteers.size, 'Volunteer'), '#', rel: 'popover', 'data-original-title' => "#{ pluralize(topic.volunteers.size, 'Volunteer') }", 'data-original-title' => "#{ pluralize(topic.volunteers.size, 'Volunteer') }", 'data-content' => "#{topic.volunteer_names.join(', ')}".html_safe, remote: true)
+
+      %p
+        = link_to('Full Description', topic, class: 'btn btn-mini')
+        = current_user.destroy_topic_link(topic)
+
+    .span7.visible-desktop
+      %h4 Description
+      = topic.description

@@ -1,0 +1,30 @@
+= render 'topics/sub_nav'
+
+%center
+  %h1 @LVRUG Leaderboard
+%h4 Points = Vote count for any given topic presented to @LVRUG.
+%ul
+  .row
+    .span5
+      %li
+        %strong 75% of the points
+        are awarded to the person who presented the topic
+
+    .span5
+      %li
+        %strong 25% of the points
+        are awarded to the person who suggests the topic
+
+%table.table
+  %th Position
+  %th Name
+  %th Points
+  - position = 0
+  - @users.each do |user|
+    %tr
+      %td
+        %h3= position += 1
+      %td
+        %h4= user.name
+      %td
+        %h3= user.points
