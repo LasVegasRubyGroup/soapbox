@@ -2,6 +2,7 @@
 .powrc
 .bundle
 .rvmrc
+.rspec-tm
 .DS_Store
 .vagrant
 /.bundle
