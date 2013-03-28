@@ -3,7 +3,10 @@ class Topic < ActiveRecord::Base
   belongs_to :meeting
   has_many :voters
   has_many :volunteers
+  has_many :kudos
 
+  has_many :users, :through => :kudos
+  
   validates :title, presence: true
   validates :description, presence: true
 
@@ -58,6 +61,21 @@ class Topic < ActiveRecord::Base
   end
 
   def presenter_points
-    5 + (points - suggestion_points)
+    5 + (points - suggestion_points) + kudos.count
   end
+
+  def give_kudo_as(user)
+    return false unless can_add_kudo?
+    Kudo.create!(topic: self, user: user)
+  rescue ActiveRecord::RecordInvalid
+    errors.add :kudos, "we've reported this to Alex Peachey, cheating asshole."
+    false
+  end
+
+  def can_add_kudo?
+    return true if meeting.open?
+    errors.add :kudos, 'too late, asshole.'
+    false
+  end
+
 end
