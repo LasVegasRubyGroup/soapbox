@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 
 gem 'jquery-rails'
 gem 'state_machine'
@@ -27,6 +27,8 @@ end
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'capybara', '2.1.0.rc1'
+  gem 'launchy'
   gem 'rspec-rails', '~> 2.0'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'shoulda-matchers'

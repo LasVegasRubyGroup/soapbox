@@ -68,3 +68,4 @@ module Soapbox
     config.assets.initialize_on_precompile = false
   end
 end
+StateMachine::Machine.ignore_method_conflicts = true
