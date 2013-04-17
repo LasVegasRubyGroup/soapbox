@@ -35,4 +35,16 @@ describe "A meeting detail page, with 3 time slots, each with a topic" do
       page.should have_selector(:css, "#topic_#{topic3.id}")
     end
   end
+
+  context "When viewed by a non-organizer User" do
+    let(:user) { create(:user, :name => "Joe User", :provider => "meetup", :uid => "1234") }
+
+    before do
+      signin_as(user)
+      visit meeting_path(meeting)
+    end
+
+    it { save_and_open_page }
+      
+  end
 end

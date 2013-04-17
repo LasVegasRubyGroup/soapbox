@@ -21,4 +21,5 @@ end
 ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
 
 RSpec.configure do |config|
+  config.include OmniauthHelpers
 end
