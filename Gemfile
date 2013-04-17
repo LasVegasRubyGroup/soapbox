@@ -34,12 +34,12 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'database_cleaner', '0.7.0'
   gem 'ffaker'
+  gem 'pry-rails'
 end
 
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'pry-rails'
 end
 
 group :production do
