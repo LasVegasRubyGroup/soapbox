@@ -34,11 +34,9 @@ User.all.each do |user|
 end
 puts 'Done!'
 
-User.create(email: 'user@example.com', password: 'test123',
-            password_confirmation: 'test123', organizer: false)
+User.create(email: 'user@example.com', organizer: false)
 
-User.create(email: 'organizer@example.com', password: 'test123',
-            password_confirmation: 'test123', organizer: true)
+User.create(email: 'organizer@example.com', organizer: true)
 
 puts <<-INFO
 ================================================================================
