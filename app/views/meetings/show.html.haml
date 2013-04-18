@@ -1,5 +1,10 @@
 %h1 @LVRUG Meetup for #{@meeting.date}
 
+- if @meeting.kudos_available?(Time.current)
+  .kudos
+    - @meeting.time_slots.each do |slot|
+      = link_to(slot.topic.title, '#', class: 'btn btn-large btn-inverse btn-kudo')
+
 = render(TimeSlotDecorator.decorate(@meeting.time_slots))
 
 = current_user.edit_meeting_link(@meeting)

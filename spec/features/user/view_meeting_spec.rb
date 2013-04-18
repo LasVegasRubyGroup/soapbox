@@ -39,12 +39,34 @@ describe "A meeting detail page, with 3 time slots, each with a topic" do
   context "When viewed by a non-organizer User" do
     let(:user) { create(:user, :name => "Joe User", :provider => "meetup", :uid => "1234") }
 
-    before do
-      signin_as(user)
-      visit meeting_path(meeting)
+    context "Voting is closed" do
+      before do
+        meeting.update_attributes(state: 'closed')
+        signin_as(user)
+        visit meeting_path(meeting)
+      end
+
+      it "should not display kudos action" do
+
+        page.should_not have_selector(:css, ".kudos")
+      end
     end
 
-    it { save_and_open_page }
+    context "when the voting is open" do
+      before do
+        Time.stub(:now).and_return(at_time)
+        meeting.update_attributes(state: 'open')
+        signin_as(user)
+        visit meeting_path(meeting)
+      end
+
+      let(:at_time) { Time.local(on_date.year, on_date.month, on_date.day, 19,50) }
+      before { Time.stub(:now).and_return(at_time) }
+      it "should display kudos action" do
+        page.should have_selector(:css, ".kudos")
+        save_and_open_page
+      end
+    end
       
   end
 end

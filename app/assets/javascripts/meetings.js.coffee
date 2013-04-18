@@ -2,6 +2,21 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+class window.MeetingShow
+  constructor: ->
+    @wireKudoButtons()
+
+  wireKudoButtons: ->
+    $('.btn-kudo').on 'click', (e) ->
+      e.preventDefault()
+      url = $(e.target).data('url') + '.json'
+      $.ajax url,
+        type: 'put'
+        statusCode:
+          200: ->
+            $('.btn-kudo').remove()
+
+
 class window.MeetingForm
   constructor: ->
     @wireTopics()

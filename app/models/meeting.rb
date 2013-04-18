@@ -4,7 +4,7 @@ class Meeting < ActiveRecord::Base
 
   after_save :update_topics
 
-  attr_accessible :date, :status, :time_slots_attributes
+  attr_accessible :date, :status, :time_slots_attributes, :state
 
   accepts_nested_attributes_for :time_slots
 
@@ -62,5 +62,13 @@ class Meeting < ActiveRecord::Base
       mark_topics_closed!
       give_points!
     end
+  end
+
+  def kudos_available?(time)
+    #todo need to break this up
+    time.to_date == date.to_date &&
+    ((time.hour == 19 && time.min >= 45) ||
+      (time.hour > 19 && time.hour < 20)) &&
+    state == 'open'
   end
 end
