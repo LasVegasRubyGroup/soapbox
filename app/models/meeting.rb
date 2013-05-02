@@ -65,18 +65,21 @@ class Meeting < ActiveRecord::Base
   end
 
   def kudos_available?(time, user)
-    !has_given_kudo?(user) &&
-    time.to_date == date.to_date &&
-    ((time.hour == 19 && time.min >= 45) ||
-      (time.hour > 19 && time.hour < 20)) &&
-    state == 'open'
+    return false unless kudos_period_open?(time)
+    can_give_kudo?(user)
   end
 
   def give_kudo(topic, user)
     Kudo.create!(topic: topic, user: user)
   end
 
-  def has_given_kudo?
-    
+  def can_give_kudo?(user)
+    topics.all?{ |t| t.can_add_kudo?(user) }
+  end
+
+  def kudos_period_open?(time)
+    time.to_date == date.to_date &&
+    ((time.hour == 19 && time.min >= 45) ||
+      (time.hour > 19 && time.hour < 20)) && open?
   end
 end
