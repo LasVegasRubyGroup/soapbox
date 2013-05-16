@@ -3,7 +3,8 @@
 - if @meeting.kudos_available?(Time.current, current_user)
   .kudos
     - @meeting.time_slots.each do |slot|
-      = link_to(slot.topic.title, '#', class: 'btn btn-large btn-inverse btn-kudo')
+      = link_to(slot.topic.title, '#', class: 'btn btn-large btn-inverse btn-kudo',
+                data: {url: give_kudo_topic_path(slot.topic)})
 
 = render(TimeSlotDecorator.decorate(@meeting.time_slots))
 
