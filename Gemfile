@@ -15,6 +15,7 @@ gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 gem 'nestful'
+gem 'pg'
 
 group :assets do
   gem 'sass-rails', '~> 3.2.3'
@@ -42,6 +43,3 @@ group :development do
   gem 'binding_of_caller'
 end
 
-group :production do
-  gem 'pg'
-end

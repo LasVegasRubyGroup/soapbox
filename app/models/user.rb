@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_for_meetup_oauth(auth, signed_in_resource = nil)
-    user = User.where(provider: auth.provider, uid: auth.uid).first
+    user = User.where(provider: auth.provider, uid: auth.uid.to_s).first
 
     unless user
       user = User.create(name: auth.info.name,
