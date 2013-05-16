@@ -74,3 +74,5 @@ class window.MeetingForm
 $ ->
   if $('.meeting_form').length > 0
     new window.MeetingForm()
+  if $('.btn-kudo').length > 0
+    new window.MeetingShow()
