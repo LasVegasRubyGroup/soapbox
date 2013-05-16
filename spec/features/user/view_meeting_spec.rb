@@ -14,6 +14,10 @@ describe "A meeting detail page, with 3 time slots, each with a topic" do
       ts.topic = send("topic#{idx+1}")
     end
     meeting.save
+    meeting.time_slots.each_with_index do |ts, idx|
+      send("topic#{idx+1}").update_attribute(:meeting_id, meeting.id)
+    end
+    meeting.reload    
   end
 
   context "When viewed by a Visitor" do
@@ -52,21 +56,30 @@ describe "A meeting detail page, with 3 time slots, each with a topic" do
       end
     end
 
-    context "when the voting is open" do
+    context "when the voting is open and user" do
       before do
         Time.stub(:now).and_return(at_time)
         meeting.update_attributes(state: 'open')
         signin_as(user)
-        visit meeting_path(meeting)
       end
 
       let(:at_time) { Time.local(on_date.year, on_date.month, on_date.day, 19,50) }
-      before { Time.stub(:now).and_return(at_time) }
-      it "should display kudos action" do
-        page.should have_selector(:css, ".kudos")
-        save_and_open_page
+
+      context 'when the user has not voted yet' do
+        it "should display kudos action" do
+          visit meeting_path(meeting)
+          page.should have_selector(:css, ".kudos")
+        end
       end
-    end
+
+      context 'when the user has voted' do
+        before { meeting.give_kudo(meeting.topics[0], user) }
+        it 'should not display kudos actions' do
+          visit meeting_path(meeting)
+          page.should_not have_selector(:css, ".kudos")
+        end
+      end
       
+    end   
   end
 end
