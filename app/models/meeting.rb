@@ -64,11 +64,22 @@ class Meeting < ActiveRecord::Base
     end
   end
 
-  def kudos_available?(time)
-    #todo need to break this up
+  def kudos_available?(time, user)
+    return false unless kudos_period_open?(time)
+    can_give_kudo?(user)
+  end
+
+  def give_kudo(topic, user)
+    Kudo.create!(topic: topic, user: user)
+  end
+
+  def can_give_kudo?(user)
+    topics.all?{ |t| t.can_add_kudo?(user) }
+  end
+
+  def kudos_period_open?(time)
     time.to_date == date.to_date &&
     ((time.hour == 19 && time.min >= 45) ||
-      (time.hour > 19 && time.hour < 20)) &&
-    state == 'open'
+      (time.hour > 19 && time.hour < 20)) && open?
   end
 end
