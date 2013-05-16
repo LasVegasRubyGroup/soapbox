@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :user, aliases: [:presenter] do
     name 'Example User'
     organizer false
-    email { Faker::Internet.email }
+    # email { Faker::Internet.email }
   end
 
   factory :organizer, parent: :user do

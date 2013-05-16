@@ -71,6 +71,14 @@ class TopicsController < ApplicationController
     redirect_to(topics_url)
   end
 
+  def give_kudo
+    if @topic.give_kudo_as(current_user)
+      head :ok
+    else
+      render json: {error: @topic.errors[:kudos]}, status: 412
+    end
+  end
+
 private
 
   def fetch_topic
