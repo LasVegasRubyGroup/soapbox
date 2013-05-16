@@ -13,6 +13,7 @@ Soapbox::Application.routes.draw do
     member do
       put :vote
       put :volunteer
+      put :give_kudo
     end
   end
 
