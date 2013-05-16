@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20130321025411) do
   add_index "kudos", ["user_id"], :name => "index_kudos_on_user_id"
 
   create_table "meetings", :force => true do |t|
+    t.string   "old_id"
     t.string   "state"
     t.datetime "date"
     t.datetime "created_at", :null => false
@@ -31,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20130321025411) do
   end
 
   create_table "time_slots", :force => true do |t|
+    t.string   "old_topic_id"
     t.integer  "meeting_id"
     t.string   "starts_at"
     t.string   "ends_at"
@@ -41,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20130321025411) do
   end
 
   create_table "topics", :force => true do |t|
+    t.string   "old_id"
     t.integer  "user_id"
     t.string   "title"
     t.text     "description"
@@ -51,27 +54,22 @@ ActiveRecord::Schema.define(:version => 20130321025411) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "",    :null => false
-    t.string   "encrypted_password",     :default => "",    :null => false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
+    t.integer  "sign_in_count",       :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "provider"
     t.string   "uid"
-    t.boolean  "organizer",              :default => false
+    t.boolean  "organizer",           :default => false
     t.string   "name"
-    t.integer  "points",                 :default => 0
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.integer  "points",              :default => 0
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["provider", "uid"], :name => "index_users_on_provider_and_uid", :unique => true
   add_index "users", ["uid"], :name => "index_users_on_uid", :unique => true
 
   create_table "volunteers", :force => true do |t|

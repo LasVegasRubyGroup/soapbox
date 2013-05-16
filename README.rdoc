@@ -3,6 +3,10 @@ You'll need a .env file setup for local variables. Heroku already has these set 
 Log into your meetup account and setup a new app here http://www.meetup.com/meetup_api/oauth_consumers/
 Also get your api key from http://www.meetup.com/meetup_api/key/
 
+Need to asign meeting_id in production
+Meeting.all.each { |m| m.time_slots.each { |t| t.topic.update_attribute(:meeting_id, m.id)}} 
+
+
 Here is an example file:
 
   export MEETUP_API_KEY=XXX
