@@ -28,7 +28,6 @@ group :assets do
 end
 
 group :development, :test, :staging do
-  gem 'sqlite3'
   gem 'capybara', '2.1.0.rc1'
   gem 'launchy'
   gem 'rspec-rails', '~> 2.0'
@@ -40,6 +39,7 @@ group :development, :test, :staging do
 end
 
 group :development do
+  gem 'sqlite3'
   gem 'sextant'
   gem 'better_errors'
   gem 'binding_of_caller'
