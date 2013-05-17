@@ -26,7 +26,7 @@ group :assets do
   gem 'jquery-ui-rails'
 end
 
-group :development, :test do
+group :development, :test, :staging do
   gem 'sqlite3'
   gem 'capybara', '2.1.0.rc1'
   gem 'launchy'
@@ -39,6 +39,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'sextant'
   gem 'better_errors'
   gem 'binding_of_caller'
 end

@@ -76,3 +76,38 @@ $ ->
     new window.MeetingForm()
   if $('.btn-kudo').length > 0
     new window.MeetingShow()
+
+
+
+if ($("#kudos_graph").length > 0)
+  Morris.Bar
+    element: 'kudos_graph'
+    data: $('#kudos_graph').data('subjects')
+    xkey: 'presenter'
+    ykeys: ['kudos']
+    labels: ['Kudos']
+    gridTextSize: 25
+    barColors: ['#ae1833']
+    gridTextColor: ['#ae1833']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

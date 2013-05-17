@@ -1,14 +1,12 @@
 / %h1= "Most Popular Topics Suggestions #{current_user.new_topic_link}".html_safe
 
-= render 'topics/sub_nav'
-
 %p.pull-right= current_user.new_topic_link
 %h1 Most Popular Topics Suggestions
 %p= "Below is a list of topics suggested by members of the Las Vegas Ruby User Group (#{link_to('@LVRUG', 'https://twitter.com/LVRUG', target: 'blank')}). During our next meetup, we'll pick three to be presented. If you have a topic you'd like to see covered, suggested one!".html_safe
 
 -unless signed_in?
   .alert.alert-info
-    = "<strong>Just so you know!</strong> If you create an account you can vote on which topic you'd like to see, volunteer to present and suggest topics you'd like to see.".html_safe
+    = "<strong>Just so you know!</strong> If you sign in with meetup, you can vote, volunteer and suggest topics.".html_safe
 
 =render @topics
 

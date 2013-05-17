@@ -13,7 +13,9 @@
     .container
       .row
         = render 'shared/header'
+        = render 'topics/sub_nav'
         = render 'shared/alerts'
+        = kudos_prompt
         = yield
       %footer
         A Project by the Las Vegas Ruby User Group

@@ -7,9 +7,18 @@ Need to asign meeting_id in production
 Meeting.all.each { |m| m.time_slots.each { |t| t.topic.update_attribute(:meeting_id, m.id)}} 
 
 
+http://staging-lvrug-soapbox.herokuapp.com/
+
 Here is an example file:
 
   export MEETUP_API_KEY=XXX
   export MEETUP_KEY=XXX
   export MEETUP_SECRET=XXX
   export MEETUP_GROUP=las-vegas-ruby-on-rails
+
+
+== Pull production database
+
+heroku pgbackups:capture
+curl -o latest.dump `heroku pgbackups:url`
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -U juddl333 -d soapbox_development latest.dump

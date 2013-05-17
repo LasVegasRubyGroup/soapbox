@@ -1,4 +1,6 @@
 .time_slot{id: "topic_#{time_slot.topic.id}"}
-  %h1= time_slot.topic.title
+  %h4= link_to(time_slot.topic.title, topic_path(time_slot.topic))
   %time= time_slot.time
-  %p= time_slot.presenter.name
+  %p= "Presenter: #{time_slot.presenter.name}"
+  %p= "Votes For Topic: #{time_slot.topic.votes}"
+  %p= "Suggested by: #{time_slot.topic.user.name}"

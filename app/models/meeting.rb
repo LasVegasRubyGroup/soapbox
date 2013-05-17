@@ -56,6 +56,13 @@ class Meeting < ActiveRecord::Base
     end
   end
 
+  def award_kudo_points
+    time_slots.each do |time_slot| 
+      points = time_slot.topic.kudos.count
+      time_slot.presenter.points += points
+    end
+  end
+
   def finalize_and_reward!
     ActiveRecord::Base.transaction do
       finalize!
@@ -78,6 +85,7 @@ class Meeting < ActiveRecord::Base
   end
 
   def kudos_period_open?(time)
+    return true
     time.to_date == date.to_date &&
     ((time.hour == 19 && time.min >= 45) ||
       (time.hour > 19 && time.hour < 20)) && open?
