@@ -14,7 +14,8 @@
       .row
         = render 'shared/header'
         = render 'topics/sub_nav'
-        = render 'shared/alerts'
+        / = render 'shared/alerts'
+        = bootstrap_flash
         = kudos_prompt
         = yield
       %footer
