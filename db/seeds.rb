@@ -2,9 +2,24 @@ DatabaseCleaner.orm = 'active_record'
 DatabaseCleaner.strategy = :truncation
 DatabaseCleaner.clean
 
+meeting = Meeting.prototype(Date.current)
+# FactoryGirl.create(:topic, :title => "Topic 2", :description => "This is a topic", meeting_id: meeting.id) 
+# FactoryGirl.create(:topic, :title => "Topic 3", :description => "This is a topic", meeting_id: meeting.id)
+meeting.save
+
+meeting.time_slots.each do |time_slot|
+
+  time_slot.topic = FactoryGirl.create(:topic, :title => Faker::Lorem.sentence, :description => "This is a topic", meeting_id: meeting.id, state: 'selected')
+  time_slot.presenter = FactoryGirl.create(:user)
+end
+
+meeting.save
+
+
+
 print 'Creating 10 users'
 10.times do
-  FactoryGirl.create(:user, email: Faker::Internet.email)
+  FactoryGirl.create(:user)
   print '.'
 end
 puts 'Done!'
@@ -26,6 +41,12 @@ User.all.each do |user|
 end
 puts 'Done!'
 
+
+print 'Simulating votes'
+  FactoryGirl.create_list(:kudo, 25)
+puts 'Done!'
+
+
 print 'Simulating volunteers'
 User.all.each do |user|
   # Select a subset of topics and volunteer for them as each existing user
@@ -34,9 +55,7 @@ User.all.each do |user|
 end
 puts 'Done!'
 
-User.create(email: 'user@example.com', organizer: false)
 
-User.create(email: 'organizer@example.com', organizer: true)
 
 puts <<-INFO
 ================================================================================
