@@ -8,18 +8,17 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
 
+
+
  *= require 'twitter/bootstrap'
  *= require_self
 
  */
 
-@import twitter/bootstrap
 @import morris.core
 
-body
-  padding-top: 80px
+@import bootstrap_and_overrides.css
 
-@import twitter/bootstrap/responsive
 
 
 .badge
@@ -51,9 +50,6 @@ body
   font-size: 15px
   padding: 10px
 
-
-$navbarBackgroundHighlight: transparentize(black, 0.3)
-$navbarBackgroundHighlight: transparentize(black, 0.3)
 $textColor: white
 $linkColor: white
 $ruby_red: #b81d30
@@ -61,8 +57,12 @@ $ruby_red: #b81d30
 $btnPrimaryBackground: $ruby_red
 
 .btn-kudo
-  width: 300px
+  width: 85%
   margin-bottom: 20px
+
+.btn-kudo-prompt
+  font-size: 25px
+  width: 80%
 
 .logo
   font-size: 40px
@@ -79,7 +79,6 @@ $btnPrimaryBackground: $ruby_red
     color: white
 
 body
-  background-color: #dfdac6
   font-family: courier
 
 .form-actions
@@ -97,21 +96,21 @@ body
 .topic_title_container
   position: relative
 
-.navbar-inner
-  background-image: url('diagmonds.png')
+// .navbar-inner
+//   background-image: url('diagmonds.png')
 
-.navbar
-  font-size: 15px
-  border-bottom: $ruby_red 1px solid
+// .navbar
+//   font-size: 15px
+//   border-bottom: $ruby_red 1px solid
 
-  ul.nav li a
-    color: $ruby_red
-    margin-top: 20px
-    text-shadow: none
-    font-size: 18px
+//   ul.nav li a
+//     color: $ruby_red
+//     margin-top: 20px
+//     text-shadow: none
+//     font-size: 18px
 
-  ul.nav li a:hover
-    color: lighten($ruby_red, 10%)
+//   ul.nav li a:hover
+//     color: lighten($ruby_red, 10%)
 
 .popover-content
   color: black

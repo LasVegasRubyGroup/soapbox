@@ -1,2 +1,8 @@
-%center
-  = link_to('&#x2713; Kudos Voting Is Now Open'.html_safe, meeting_path(Meeting.last), class: 'btn btn-success btn-large')
+- unless params[:controller] == 'meetings'
+  %center
+    .visible-desktop
+      = link_to('<i class="icon-star icon-white"></i> Give Kudos! Voting Is Now Open <i class="icon-star icon-white"></i>'.html_safe, meeting_path(Meeting.last), class: 'btn btn-large btn-warning btn-kudo-prompt')
+    .hidden-desktop
+      = link_to('<i class="icon-star icon-white"></i> Give Kudos! <br />Voting Is Now Open '.html_safe, meeting_path(Meeting.last), class: 'btn btn-large btn-warning')
+
+  %br

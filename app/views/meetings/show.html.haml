@@ -1,11 +1,17 @@
 %center
   %h1 Meetup for #{l @meeting.date, format: :long}
 
-  - if @meeting.kudos_available?(Time.current, current_user)
-    .kudos
+- if @meeting.kudos_available?(Time.current, current_user)
+
+  %br
+  .alert.alert-info
+    %center
+      %h4 To give a Kudo, click on the presentation you liked best.
+  .kudos
+    %center
       - @meeting.time_slots.each do |slot|
         = link_to(slot.topic.title, '#', class: 'btn btn-large btn-success btn-kudo',
-                  data: {url: give_kudo_topic_path(slot.topic)})
+                data: {url: give_kudo_topic_path(slot.topic)})
 
 = render 'points_awarded' if @meeting.closed?
 
