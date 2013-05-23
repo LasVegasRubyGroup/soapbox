@@ -85,12 +85,13 @@ class Meeting < ActiveRecord::Base
   end
 
   def kudos_period_open?(time)
-    if Rails.env.staging? #todo fix this logic, maybe a flag in the url
-      return true
-    else
+    return true
+    # if Rails.env.staging? #todo fix this logic, maybe a flag in the url
+    #   return true
+    # else
       time.to_date == date.to_date &&
-      ((time.hour == 19 && time.min >= 45) ||
+      ((time.hour == 19 && time.min >= 10) ||
         (time.hour > 19 && time.hour < 20)) && open?
-    end
+    # end
   end
 end
