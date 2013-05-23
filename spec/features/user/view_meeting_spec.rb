@@ -28,7 +28,7 @@ describe "A meeting detail page, with 3 time slots, each with a topic" do
     end
 
     it "has the correct title" do
-      page.should have_content("@LVRUG Meetup for #{on_date}")
+      page.should have_content("Meetup for")
     end
 
     it "contains 3 time slots" do
