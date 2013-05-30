@@ -1,24 +1,7 @@
 require 'features/features_helper'
 
 describe "A meeting detail page, with 3 time slots, each with a topic" do
-  let(:presenter) { create(:user, :name => "Presenter") }
-  let(:on_date) { Date.today }
-  let(:meeting) { Meeting.prototype(on_date) }
-  let(:topic1) { create(:topic, :title => "Topic 1", :description => "This is a topic") }
-  let(:topic2) { create(:topic, :title => "Topic 2", :description => "This is a topic") }
-  let(:topic3) { create(:topic, :title => "Topic 3", :description => "This is a topic") }
-
-  before do
-    meeting.time_slots.each_with_index do |ts, idx|
-      ts.presenter = presenter
-      ts.topic = send("topic#{idx+1}")
-    end
-    meeting.save
-    meeting.time_slots.each_with_index do |ts, idx|
-      send("topic#{idx+1}").update_attribute(:meeting_id, meeting.id)
-    end
-    meeting.reload    
-  end
+  include_context "full meeting setup"
 
   context "When viewed by a Visitor" do
     before { visit meeting_path(meeting) }
