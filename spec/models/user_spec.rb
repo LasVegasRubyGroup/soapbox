@@ -5,13 +5,23 @@ describe User do
   describe '.find_for_meetup_oauth' do
 
     context 'when the user does not exist' do
-      let(:auth) { OpenStruct.new(auth: 'test', uid: '123456', info: OpenStruct.new(name: 'Joe Blow')) }
+      let(:auth) { OpenStruct.new(provider: 'test', uid: '123456', info: OpenStruct.new(name: 'Joe Blow')) }
 
       before { Meetup::Profile.stub(:get).and_return({'role' => ''}) }
 
       it 'creates the user' do
         User.find_for_meetup_oauth(auth)
         User.find_by_name('Joe Blow').should_not be_nil
+      end
+
+      it 'sets the provider' do
+        User.find_for_meetup_oauth(auth)
+        User.find_by_name('Joe Blow').provider.should == 'test'
+      end
+
+      it 'sets the uid' do
+        User.find_for_meetup_oauth(auth)
+        User.find_by_name('Joe Blow').uid.should == '123456'
       end
 
       context 'when the user is not an organizer' do
