@@ -85,7 +85,7 @@ class Meeting < ActiveRecord::Base
   end
 
   def kudos_period_open?(time)
-    if Rails.env.staging? #todo fix this logic, maybe a flag in the url
+    if KUDOS_ALWAYS_AVAILABLE
       return true
     else
       time.to_date == date.to_date &&

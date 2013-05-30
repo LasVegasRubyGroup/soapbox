@@ -67,3 +67,5 @@ Soapbox::Application.configure do
 
   config.action_mailer.default_url_options = { host: 'lvrug.org' }
 end
+
+KUDOS_ALWAYS_AVAILABLE = true
