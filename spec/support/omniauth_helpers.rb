@@ -4,6 +4,7 @@ module OmniauthHelpers
     auth_hash = {
       'provider' => 'meetup',
       'uid' => user.uid,
+      'info' => { 'name' => user.name },
       'extra' => {}
     }
     OmniAuth.config.mock_auth[:meetup] = OmniAuth::AuthHash.new(auth_hash)
