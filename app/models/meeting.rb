@@ -89,8 +89,8 @@ class Meeting < ActiveRecord::Base
       return true
     else
       time.to_date == date.to_date &&
-      ((time.hour == 15 && time.min >= 30) ||
-        (time.hour > 15 && time.hour < 20)) && open?
+      ((time.hour == 19 && time.min >= 45) ||
+        (time.hour > 19 && time.hour < 20)) && open?
     end
   end
 end
