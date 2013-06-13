@@ -15,8 +15,6 @@ end
 
 meeting.save
 
-
-
 print 'Creating 10 users'
 10.times do
   FactoryGirl.create(:user)
@@ -42,7 +40,7 @@ end
 puts 'Done!'
 
 
-print 'Simulating votes'
+print 'Simulating kudos'
   FactoryGirl.create_list(:kudo, 25)
 puts 'Done!'
 
