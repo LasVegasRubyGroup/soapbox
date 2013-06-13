@@ -1,8 +1,8 @@
-class UserDecorator < Draper::Base
-  decorates :user
+class UserDecorator < Draper::Decorator
+  delegate_all
 
   def signed_in?
-    !user.new_record?
+    !new_record?
   end
 
   def session_control
@@ -20,31 +20,31 @@ class UserDecorator < Draper::Base
   end
 
   def new_meeting_link
-    if user.organizer
+    if organizer
       h.link_to('Create Meeting', h.new_meeting_path)
     end
   end
 
   def edit_meeting_link(meeting)
-    if user.organizer && meeting.open?
+    if organizer && meeting.open?
       h.link_to('Edit Meeting', h.edit_meeting_path(meeting), class: 'btn')
     end
   end
 
   def finalize_meeting_link(meeting)
-    if user.organizer && meeting.open?
+    if organizer && meeting.open?
       h.link_to('Finalize', h.finalize_meeting_path(meeting), class: 'btn btn-success', method: :put)
     end
   end
 
   def edit_topic_link(topic)
-    if (topic.user == user) or user.organizer
+    if (topic.user == self) or organizer
       h.link_to 'Edit', h.edit_topic_path(topic), class: 'btn'
     end
   end
 
   def destroy_topic_link(topic)
-    if user.organizer
+    if organizer
       h.link_to 'Destroy', topic, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger btn-mini'
     end
   end

@@ -1,4 +1,4 @@
-shared_context "full meeting setup" do
+shared_context "full meeting setup", full_meeting: true do
 
   subject(:meeting) { Meeting.prototype(on_date) }
   let(:user) { create(:user) }
