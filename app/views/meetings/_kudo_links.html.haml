@@ -1,0 +1,7 @@
+%br
+.alert.alert-info
+  %center
+    %h4 To give a Kudo, click on the presentation you liked best.
+.kudos
+  %center
+    = render partial: 'kudo_link', collection: @meeting.topics, as: :topic
