@@ -22,6 +22,11 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers, :type => :feature
   config.include FactoryGirl::Syntax::Methods
 
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.run_all_when_everything_filtered = true
+  config.filter_run :focus
+
+
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
