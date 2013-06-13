@@ -49,7 +49,7 @@ private
   end
 
   def load_meeting
-    @meeting = MeetingDecorator.find(params[:id])
+    @meeting = MeetingDecorator.decorate(Meeting.find(params[:id]))
   end
 
   def point_allocation(topics)

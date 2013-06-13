@@ -1,27 +1,27 @@
-class TopicDecorator < Draper::Base
-  decorates :topic
+class TopicDecorator < Draper::Decorator
+  delegate_all
 
   def to_partial_path
     'topics/topic'
   end
 
   def link
-    h.link_to topic.title, h.topic_path(topic)
+    h.link_to title, h.topic_path(self)
   end
 
   def volunteer_data
-    topic.volunteers.map { |v| { id: v.user_id, name: v.name } }.to_json
+    volunteers.map { |v| { id: v.user_id, name: v.name } }.to_json
   end
 
   def description
-    h.markdown.render(topic.description).html_safe
+    h.markdown.render(description).html_safe
   end
 
   def user_name
-    topic.user.name
+    user.name
   end
 
   def volunteer_names
-    topic.volunteers.collect(&:user).collect(&:name)
+    volunteers.collect(&:user).collect(&:name)
   end
 end
