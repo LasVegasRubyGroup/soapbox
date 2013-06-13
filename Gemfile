@@ -17,6 +17,7 @@ gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 gem 'nestful'
 gem 'pg'
+gem 'airbrake'
 
 group :assets do
   gem 'sass-rails', '~> 3.2.3'
