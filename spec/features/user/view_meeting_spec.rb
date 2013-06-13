@@ -21,6 +21,22 @@ describe "A meeting detail page, with 3 time slots, each with a topic" do
     it "contains the third topic" do
       page.should have_selector(:css, "#topic_#{topic3.id}")
     end
+
+    it "should not display graph" do 
+      page.should_not have_selector("//h2", text: 'Kudos Awarded')
+    end
+
+    context "when the meeting is closed" do 
+      before do
+        meeting.update_attributes(state: 'closed')
+      end
+
+      it "should display a graph" do 
+        visit meeting_path(meeting)
+        page.should have_selector("//h2", text: 'Kudos Awarded')
+      end
+
+    end   
   end
 
   context "When viewed by a non-organizer User" do
@@ -40,13 +56,13 @@ describe "A meeting detail page, with 3 time slots, each with a topic" do
     end
 
     context "when the voting is open and user" do
+      let(:at_time) { Time.local(on_date.year, on_date.month, on_date.day, 19,50) }
+ 
       before do
         Time.stub(:now).and_return(at_time)
         meeting.update_attributes(state: 'open')
         signin_as(user)
       end
-
-      let(:at_time) { Time.local(on_date.year, on_date.month, on_date.day, 19,50) }
 
       context 'when the user has not voted yet' do
         it "should display kudos action" do
@@ -63,6 +79,7 @@ describe "A meeting detail page, with 3 time slots, each with a topic" do
         end
       end
       
-    end   
+    end
+
   end
 end
