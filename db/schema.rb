@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20130321025411) do
     t.datetime "date"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "meetup_id"
   end
 
   create_table "time_slots", :force => true do |t|

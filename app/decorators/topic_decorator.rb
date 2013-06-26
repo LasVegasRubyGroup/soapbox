@@ -10,11 +10,11 @@ class TopicDecorator < Draper::Decorator
   end
 
   def volunteer_data
-    volunteers.map { |v| { id: v.user_id, name: v.name } }.to_json
+    model.volunteers.map { |v| { id: v.user_id, name: v.name } }.to_json
   end
 
   def description
-    h.markdown.render(description).html_safe
+    h.markdown.render(model.description).html_safe
   end
 
   def user_name
@@ -22,6 +22,6 @@ class TopicDecorator < Draper::Decorator
   end
 
   def volunteer_names
-    volunteers.collect(&:user).collect(&:name)
+    model.volunteers.collect(&:user).collect(&:name)
   end
 end
