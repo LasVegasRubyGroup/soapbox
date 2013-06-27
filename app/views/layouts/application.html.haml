@@ -8,6 +8,8 @@
     %link{ :rel => "apple-touch-icon-precomposed", :href => "/assets/apple-touch-icon-iphone.png" }
     %link{ :rel => "apple-touch-icon-precomposed", :size => '72x72', :href => "/assets/apple-touch-icon-ipad.png" }
     %link{ :rel => "apple-touch-icon-precomposed", :size => '114x114', :href => "/assets/apple-touch-icon-iphone4.png" }
+    %link{ :rel => "icon", :size => '114x114', :href => "/assets/apple-touch-icon-iphone4.png" }
+
 
   %body
     .container
@@ -17,15 +19,20 @@
         / = render 'shared/alerts'
         = bootstrap_flash
         = kudos_prompt
+        .alert.alert-danger
+          %center 
+            %h4 Heads up!
+            %p OAuth with Meetup is currently broken so you can't log in at the moment. We think this is on Meetup's side.
+
         = yield
       %footer
         A Project by the Las Vegas Ruby User Group
         |
-        = mail_to('organizers@lvrug.org', 'Report a bug')
-        |
-        = mail_to('organizers@lvrug.org', 'Feedback')
+        = mail_to('topics_app@lvrug.org', 'Give Us Feedback')
         |
         = link_to('Leaderboard', leaderboard_path)
+        |
+        = link_to('Source Code', 'https://github.com/LasVegasRubyGroup/soapbox', target: :new)
 
     = javascript_include_tag "application" 
 

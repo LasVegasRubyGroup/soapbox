@@ -13,10 +13,14 @@ class MeetingsController < ApplicationController
   end
 
   def create
+    time_slots = params[:meeting].delete(:time_slots)
     @meeting = Meeting.new(params[:meeting])
-    @meeting.mark_topics_selected
+    # @meeting.mark_topics_selected
 
     if @meeting.save
+      time_slots.each do |time_slot|
+        @meeting.time_slots.create(time_slot)
+      end
       redirect_to(@meeting, notice: 'All set!')
     else
       render(:new, flash: { error: 'No luck!' })

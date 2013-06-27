@@ -11,7 +11,16 @@ class TimeSlot < ActiveRecord::Base
 
   attr_accessible :topic_id, :ends_at, :meeting_id, :presenter_id, :starts_at
 
+  after_create :select_topic
+
   def give_points
     topic.give_points_to(presenter)
   end
+
+private
+  
+  def select_topic
+    topic.select
+  end
+
 end
