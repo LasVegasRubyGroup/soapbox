@@ -88,7 +88,7 @@ class Meeting < ActiveRecord::Base
   end
 
   def kudos_period_open?(time)
-    return true if kudos_open?
+    return true if kudos_open? && open?
     time.to_date == date.to_date &&
     ((time.hour == 19 && time.min >= 45) ||
       (time.hour > 19 && time.hour < 20)) && open?
