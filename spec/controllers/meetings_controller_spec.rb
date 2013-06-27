@@ -9,11 +9,11 @@ describe MeetingsController do
     let(:meeting_params) do
       { 
         date: Date.today,
-        time_slots: [
-          { starts_at: '6:20 PM', ends_at: '6:50 PM', presenter_id: presenter.id, topic_id: topic.id },
-          { starts_at: '6:50 PM', ends_at: '7:20 PM', presenter_id: presenter.id, topic_id: topic.id },
-          { starts_at: '7:20 PM', ends_at: '7:50 PM', presenter_id: presenter.id, topic_id: topic.id }
-        ]
+        time_slots_attributes: {
+          '0' => { starts_at: '6:20 PM', ends_at: '6:50 PM', presenter_id: presenter.id, topic_id: topic.id },
+          '1' => { starts_at: '6:50 PM', ends_at: '7:20 PM', presenter_id: presenter.id, topic_id: topic.id },
+          '2' => { starts_at: '7:20 PM', ends_at: '7:50 PM', presenter_id: presenter.id, topic_id: topic.id }
+        }
       }
     end
 
