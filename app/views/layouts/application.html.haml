@@ -20,13 +20,13 @@
         .alert.alert-danger
           %center 
             %h4 Heads up!
-            %p OAuth with Meetup is current broken so you can't log in at the moment. We think this is on Meetup's side.
+            %p OAuth with Meetup is currently broken so you can't log in at the moment. We think this is on Meetup's side.
 
         = yield
       %footer
         A Project by the Las Vegas Ruby User Group
         |
-        = mail_to('topics_app@lvrug.orgg', 'Give Us Feedback')
+        = mail_to('topics_app@lvrug.org', 'Give Us Feedback')
         |
         = link_to('Leaderboard', leaderboard_path)
         |
