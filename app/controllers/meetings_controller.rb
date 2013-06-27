@@ -15,7 +15,6 @@ class MeetingsController < ApplicationController
   def create
     time_slots = params[:meeting].delete(:time_slots_attributes)
     @meeting = Meeting.new(params[:meeting])
-    # @meeting.mark_topics_selected
 
     if @meeting.save
       time_slots.values.each do |time_slot|

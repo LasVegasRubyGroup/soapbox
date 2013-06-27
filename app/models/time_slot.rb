@@ -5,9 +5,6 @@ class TimeSlot < ActiveRecord::Base
 
   validates :starts_at, presence: true
   validates :ends_at, presence: true
-  # validates :meeting_id, presence: true
-  # validates :topic_id, presence: true
-  # validates :presenter_id, presence: true
 
   attr_accessible :topic_id, :ends_at, :meeting_id, :presenter_id, :starts_at
 
@@ -18,9 +15,8 @@ class TimeSlot < ActiveRecord::Base
   end
 
 private
-  
-  def select_topic
-    topic.select
-  end
 
+  def select_topic
+    topic.mark_as_selected!(meeting)
+  end
 end

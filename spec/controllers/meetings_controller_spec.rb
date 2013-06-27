@@ -5,14 +5,14 @@ describe MeetingsController do
   describe 'post :create' do
     let(:organizer) { create(:organizer) }
     let(:presenter) { create(:user) }
-    let(:topic) { create(:topic)}
+    let(:topics) { create_list(:topic, 3)}
     let(:meeting_params) do
-      { 
+      {
         date: Date.today,
         time_slots_attributes: {
-          '0' => { starts_at: '6:20 PM', ends_at: '6:50 PM', presenter_id: presenter.id, topic_id: topic.id },
-          '1' => { starts_at: '6:50 PM', ends_at: '7:20 PM', presenter_id: presenter.id, topic_id: topic.id },
-          '2' => { starts_at: '7:20 PM', ends_at: '7:50 PM', presenter_id: presenter.id, topic_id: topic.id }
+          '0' => { starts_at: '6:20 PM', ends_at: '6:50 PM', presenter_id: presenter.id, topic_id: topics[0].id },
+          '1' => { starts_at: '6:50 PM', ends_at: '7:20 PM', presenter_id: presenter.id, topic_id: topics[1].id },
+          '2' => { starts_at: '7:20 PM', ends_at: '7:50 PM', presenter_id: presenter.id, topic_id: topics[2].id }
         }
       }
     end
@@ -34,5 +34,9 @@ describe MeetingsController do
       Topic.last.should be_selected
     end
 
+    it 'assigns a meeting to the topic' do
+      post :create, { meeting: meeting_params }
+      Topic.last.meeting.should_not be_nil
+    end
   end
 end

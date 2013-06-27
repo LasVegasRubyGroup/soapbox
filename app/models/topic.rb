@@ -52,7 +52,7 @@ class Topic < ActiveRecord::Base
   alias :points :votes
 
   def mark_as_selected!(meeting)
-    self.update_attribute(meeting_id: id)
+    self.update_attribute(:meeting_id, meeting.id)
     select!
   end
 

@@ -32,12 +32,6 @@ class Meeting < ActiveRecord::Base
     )
   end
 
-  def mark_topics_selected
-    topics.each do |topic|
-      topic.mark_as_selected!(self)
-    end
-  end
-
   def update_topics
     topics.each do |topic|
       topic.update_attribute(:meeting_id, id)
