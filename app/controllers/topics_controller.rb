@@ -4,7 +4,11 @@ class TopicsController < ApplicationController
   before_filter :require_organizer, only: [:destroy]
 
   def index
-    @topics = Topic.open_by_votes.decorate
+    respond_to do |f|
+      f.html do
+        @topics = Topic.open_by_votes.decorate
+      end
+    end
   end
 
   def recent
