@@ -6,9 +6,9 @@ shared_context "full meeting setup", full_meeting: true do
   let!(:presenter_two) { create(:user, :name => "Gabe Evans") }
   let!(:presenter_three) { create(:user, :name => "Judd Lillestrand") }
   let(:on_date) { Date.today }
-  let(:topic1) { create(:topic, :title => "Topic 1", :description => "This is a topic", state: 'selected') }
-  let(:topic2) { create(:topic, :title => "Topic 2", :description => "This is a topic", state: 'selected') }
-  let(:topic3) { create(:topic, :title => "Topic 3", :description => "This is a topic", state: 'selected') }
+  let(:topic1) { create(:topic, :title => "Topic 1", :description => "This is a topic", state: 'open') }
+  let(:topic2) { create(:topic, :title => "Topic 2", :description => "This is a topic", state: 'open') }
+  let(:topic3) { create(:topic, :title => "Topic 3", :description => "This is a topic", state: 'open') }
 
   before do
     meeting.time_slots.each_with_index do |ts, idx|
