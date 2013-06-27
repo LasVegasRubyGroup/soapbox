@@ -18,6 +18,7 @@ gem 'nestful'
 gem 'pg'
 gem 'airbrake'
 gem 'unicorn'
+gem 'dotenv-rails'
 
 group :assets do
   gem 'sass-rails', '~> 3.2.3'
