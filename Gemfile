@@ -39,6 +39,7 @@ group :development, :test, :staging do
   gem 'ffaker'
   gem 'pry-rails'
   gem 'pry-debugger'
+  gem 'timecop'
 end
 
 group :development do

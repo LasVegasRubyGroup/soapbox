@@ -66,8 +66,10 @@ describe "A meeting detail page, with 3 time slots, each with a topic" do
 
       context 'when the user has not voted yet' do
         it "should display kudos action" do
-          visit meeting_path(meeting)
-          page.should have_selector(:css, ".kudos")
+          Timecop.freeze(at_time) do
+            visit meeting_path(meeting)
+            page.should have_selector(:css, ".kudos")
+          end
         end
       end
 

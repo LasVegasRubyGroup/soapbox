@@ -90,30 +90,41 @@ describe Meeting do
     end
 
     context 'at the appropriate time' do
-      let(:at_time) { Time.local(on_date.year, on_date.month, on_date.day, 19,50) }
       context 'when the user has not voted' do
-        specify { meeting.kudos_available?(at_time, user).should be_true }
+        specify do
+          Timecop.freeze(at_time) do
+            meeting.kudos_available?(Time.now, user).should be_true
+          end
+        end
       end
 
       context 'when the user has voted' do
         before { meeting.give_kudo(meeting.topics[0], user) ; meeting.reload }
-        specify { meeting.kudos_available?(at_time, user).should be_false }
+        specify do
+          Timecop.freeze(at_time) do
+            meeting.kudos_available?(at_time, user).should be_false
+          end
+        end
       end
     end
 
     context 'when on the wrong date' do
       let(:at_time) { Time.local(yesterday.year, yesterday.month, yesterday.day, 19,50) }
       let(:yesterday) { 1.day.ago }
-      specify { meeting.kudos_available?(at_time, user).should be_false }
+      specify do
+        Timecop.freeze(at_time) do
+          meeting.kudos_available?(at_time, user).should be_false
+        end
+      end
     end
 
     context 'when the meeting is closed' do
       before { meeting.state = 'closed' }
-      specify { meeting.kudos_available?(at_time, user).should be_false }
+      specify do
+        Timecop.freeze(at_time) do
+          meeting.kudos_available?(at_time, user).should be_false
+        end
+      end
     end
-
-
   end
 end
-
-
