@@ -82,6 +82,6 @@ class TopicsController < ApplicationController
 private
 
   def fetch_topic
-    @topic ||= TopicDecorator.find(params[:id])
+    @topic ||= Topic.find(params[:id]).decorate
   end
 end
