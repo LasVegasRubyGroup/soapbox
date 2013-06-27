@@ -6,6 +6,12 @@ class MeetingDecorator < Draper::Decorator
     date.to_date.to_s(:long)
   end
 
+  def open_kudos(meeting, user)
+    if !meeting.kudos_open? && user.organizer?
+      h.render('open_kudos')
+    end
+  end
+
   def kudo_links_for(current_user)
     if kudos_available?(Time.current, current_user)
       h.render 'kudo_links'

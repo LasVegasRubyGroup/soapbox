@@ -40,6 +40,11 @@ class MeetingsController < ApplicationController
     end
   end
 
+  def open_kudos
+    @meeting.open_kudos!
+    redirect_to(@meeting, notice: "Let's get ready to RUUUUUUMBLE!")
+  end
+
   def finalize
     result = @meeting.finalize_and_reward!
     redirect_to(@meeting, notice: point_allocation(result))

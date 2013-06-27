@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe MeetingsController do
+  let(:organizer) { create(:organizer) }
 
   describe 'post :create' do
-    let(:organizer) { create(:organizer) }
     let(:presenter) { create(:user) }
     let(:topics) { create_list(:topic, 3)}
     let(:meeting_params) do
@@ -37,6 +37,17 @@ describe MeetingsController do
     it 'assigns a meeting to the topic' do
       post :create, { meeting: meeting_params }
       Topic.last.meeting.should_not be_nil
+    end
+  end
+
+  describe 'get :open_kudos' do
+    let(:meeting) { create(:meeting) }
+
+    before { sign_in(organizer) }
+
+    it 'opens the meeting for kudos' do
+      get :open_kudos, id: meeting.id
+      Meeting.last.should be_kudos_open
     end
   end
 end

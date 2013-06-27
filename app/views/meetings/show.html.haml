@@ -1,6 +1,7 @@
 %center
   %h1 Meetup for #{@meeting.meeting_date}
 
+= @meeting.open_kudos(@meeting, current_user)
 = @meeting.kudo_links_for(current_user)
 
 = @meeting.points_awarded

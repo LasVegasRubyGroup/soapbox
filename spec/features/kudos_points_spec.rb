@@ -4,6 +4,7 @@ describe "A meeting detail page, with 3 time slots, each with a topic" do
   include_context "full meeting setup"
 
   before do
+    meeting.open_kudos!
     meeting.time_slots.each_with_index do |ts, idx|
       FactoryGirl.create_list(:kudo, idx, topic_id: ts.topic.id)
     end

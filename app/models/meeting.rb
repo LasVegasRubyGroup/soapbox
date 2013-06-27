@@ -38,6 +38,14 @@ class Meeting < ActiveRecord::Base
     end
   end
 
+  def open_kudos!
+    self.update_attribute(:kudos_open, true)
+  end
+
+  def close_kudos!
+    self.update_attribute(:kudos_open, false)
+  end
+
   def mark_topics_closed!
     topics.each do |topic|
       topic.close!
@@ -61,6 +69,7 @@ class Meeting < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       finalize!
       mark_topics_closed!
+      close_kudos!
       give_points!
     end
   end
@@ -79,12 +88,9 @@ class Meeting < ActiveRecord::Base
   end
 
   def kudos_period_open?(time)
-    if KUDOS_ALWAYS_AVAILABLE
-      return true
-    else
-      time.to_date == date.to_date &&
-      ((time.hour == 19 && time.min >= 45) ||
-        (time.hour > 19 && time.hour < 20)) && open?
-    end
+    return true if kudos_open?
+    time.to_date == date.to_date &&
+    ((time.hour == 19 && time.min >= 45) ||
+      (time.hour > 19 && time.hour < 20)) && open?
   end
 end

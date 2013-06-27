@@ -11,6 +11,42 @@ describe Meeting do
     end
   end
 
+  describe '#open_kudos!' do
+    it 'sets the meeting to be open for kudos' do
+      subject.open_kudos!
+      subject.should be_kudos_open
+    end
+  end
+
+  describe '#close_kudos!' do
+    it 'sets the meeting to be closed for kudos' do
+      subject.close_kudos!
+      subject.should_not be_kudos_open
+    end
+  end
+
+  context '#finalize_and_reward' do
+    it 'finalizes the meeting' do
+      subject.should_receive(:finalize!)
+      subject.finalize_and_reward!
+    end
+
+    it 'marks topics as closed' do
+      subject.should_receive(:mark_topics_closed!)
+      subject.finalize_and_reward!
+    end
+
+    it 'gives points' do
+      subject.should_receive(:give_points!)
+      subject.finalize_and_reward!
+    end
+
+    it 'closes kudos' do
+      subject.should_receive(:close_kudos!)
+      subject.finalize_and_reward!
+    end
+  end
+
   describe 'mark meeting selected after finalizing' do
     # subject { Meeting.prototype }
     # binding.pry
@@ -38,6 +74,13 @@ describe Meeting do
 
   describe '#kudos_available?' do
     include_context "full meeting setup"
+
+    context 'when meeting already has kudos set to be open' do
+      specify 'at anytime, allows kudos' do
+        meeting.open_kudos!
+        meeting.kudos_available?(Time.now, user).should be_true
+      end
+    end
 
     let(:at_time) { Time.local(on_date.year, on_date.month, on_date.day, 19,50) }
 
