@@ -1,11 +1,3 @@
-GIT
-  remote: git://github.com/russ/omniauth-meetup.git
-  revision: 8dc9b8dfef80699fba92721b262135a83557b2e2
-  specs:
-    omniauth-meetup (0.0.6)
-      omniauth (~> 1.0)
-      omniauth-oauth2 (~> 1.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -159,6 +151,9 @@ GEM
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
+    omniauth-meetup (0.0.7)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.0)
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
@@ -286,7 +281,7 @@ DEPENDENCIES
   launchy
   less-rails
   nestful
-  omniauth-meetup!
+  omniauth-meetup
   pg
   pry-debugger
   pry-rails
