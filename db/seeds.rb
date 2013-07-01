@@ -2,18 +2,21 @@ DatabaseCleaner.orm = 'active_record'
 DatabaseCleaner.strategy = :truncation
 DatabaseCleaner.clean
 
-meeting = Meeting.prototype(Date.current)
+meeting = Meeting.create(date: Date.current)
 # FactoryGirl.create(:topic, :title => "Topic 2", :description => "This is a topic", meeting_id: meeting.id) 
 # FactoryGirl.create(:topic, :title => "Topic 3", :description => "This is a topic", meeting_id: meeting.id)
-meeting.save
+#meeting.save
 
-meeting.time_slots.each do |time_slot|
-
-  time_slot.topic = FactoryGirl.create(:topic, :title => Faker::Lorem.sentence, :description => "This is a topic", meeting_id: meeting.id, state: 'selected')
+[
+  { starts_at: '6:20 PM', ends_at: '6:50 PM' },
+  { starts_at: '6:50 PM', ends_at: '7:20 PM' },
+  { starts_at: '7:20 PM', ends_at: '7:50 PM' }
+].each do |time_slot_starter|
+  time_slot = meeting.time_slots.build(time_slot_starter)
+  time_slot.topic = FactoryGirl.create(:topic, title: Faker::Lorem.sentence, description: "This is a topic", meeting_id: meeting.id, state: 'open')
   time_slot.presenter = FactoryGirl.create(:user)
+  time_slot.save
 end
-
-meeting.save
 
 print 'Creating 10 users'
 10.times do
