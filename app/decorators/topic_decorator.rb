@@ -10,7 +10,7 @@ class TopicDecorator < Draper::Decorator
   end
 
   def volunteer_data
-    model.volunteers.map { |v| { id: v.user_id, name: v.name } }.to_json
+    model.volunteers.by_name.map { |v| { id: v.user_id, name: v.name } }.to_json
   end
 
   def description

@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def all_user_list
-    User.all.map { |v| { id: v.id, name: v.name } }.to_json
+    User.by_name.all.map { |v| { id: v.id, name: v.name } }.to_json
   end
 
   def kudos_prompt

@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
     order('points DESC')
   end
 
+  def self.by_name
+    order(:name)
+  end
+
   def self.find_for_meetup_oauth(auth, signed_in_resource = nil)
     user = User.where(provider: auth.provider, uid: auth.uid.to_s).first_or_create.tap do |u|
       u.name = auth.info.name
