@@ -33,7 +33,6 @@ describe "A meeting detail page, with 3 time slots, each with a topic" do
       end
 
       it "awards bonus points to the freshman presenter" do
-        pending
         expect(page).to have_text("Russ Smith awarded 10 bonus points!")
       end
     end
