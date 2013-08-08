@@ -27,22 +27,38 @@ describe PointsManager do
         let(:calculator) { double 'calculator' } 
        
         before do
-          calculator.stub(:calculate).with(topic).and_return(presenter.name => presenter_award, suggester.name => suggester_award)
+          calculator.stub(:calculate).with(topic).and_return(presenter => presenter_award, suggester => suggester_award)
         end
 
         it "returns the correct number of participants" do
           expect(points_manager.award).to have(2).keys
         end
         it "returns the presenter's awarded points" do
-          expect(points_manager.award[presenter.name]).to eq(presenter_award) 
+          expect(points_manager.award[presenter]).to eq(presenter_award) 
         end
         it "returns the suggester's awarded points" do
-          expect(points_manager.award[suggester.name]).to eq(suggester_award)
+          expect(points_manager.award[suggester]).to eq(suggester_award)
         end
       end
+
       context "with a presenter who is also the suggester" do
         let(:presenter) { stub(name: "Brian") } 
         let(:suggester) { presenter }
+        let(:presenter_award) { double 'presenter_award' }
+        let(:suggester_award) { double 'suggester_award' }
+        let(:calculator) { double 'calculator' } 
+       
+        before do
+          calculator.stub(:calculate).with(topic).and_return(presenter => presenter_award)
+        end
+
+        it "returns the correct number of participants" do
+          expect(points_manager.award).to have(1).keys
+        end
+
+        it "returns the sole participant's awarded points" do
+          expect(points_manager.award[presenter]).to eq(presenter_award) 
+        end
       end 
     end
   end
