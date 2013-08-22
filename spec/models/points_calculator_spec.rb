@@ -18,15 +18,15 @@ describe PointsCalculator do
       context 'with no kudos' do
         before { topic.stub(:kudos_count).and_return(0) }
 
-        context 'and the topic has 4 votes' do
+        context 'and the topic has 4 votes', :focus do
           before { topic.stub(:votes).and_return(4) }
 
           it 'gives 1 point to the suggester' do
-            expect( calculator.calculate(topic)[suggester] ).to eq 1
+            expect( calculator.calculate(topic)[suggester].total_points ).to eq 1
           end
 
           it 'gives eight points to the presenter' do
-            expect( calculator.calculate(topic)[presenter] ).to eq(3 + base_presenter_points)
+            expect( calculator.calculate(topic)[presenter].total_points ).to eq(3 + base_presenter_points)
           end
         end
 
