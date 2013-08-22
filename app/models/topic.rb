@@ -6,7 +6,7 @@ class Topic < ActiveRecord::Base
   has_many :kudos
 
   has_many :users, :through => :kudos
-  
+
   validates :title, presence: true
   validates :description, presence: true
 
@@ -75,6 +75,10 @@ class Topic < ActiveRecord::Base
     return add_kudo_error('too late, asshole.') unless meeting.open?
     return true unless user_ids.include?(user.id)
     add_kudo_error("we've reported this to Alex Peachey, cheating asshole.")
+  end
+
+  def kudos_count
+    kudos.count
   end
 
 private

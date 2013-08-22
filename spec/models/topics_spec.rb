@@ -88,4 +88,26 @@ describe Topic do
     end
   end
 
+  describe '#kudos_count' do
+    subject(:topic){Topic.new}
+    before {topic.stub(:kudos).and_return kudos}
+
+    context 'with no kudos' do
+      let(:kudos){[]}
+      specify{ expect(topic.kudos_count).to eq 0 }
+    end
+
+    context 'with one kudos' do
+      let(:kudos){[1]}
+      specify{ expect(topic.kudos_count).to eq 1 }
+    end
+
+    context 'with two kudos' do
+      let(:kudos){[1,1]}
+      specify{ expect(topic.kudos_count).to eq 2 }
+    end
+  end
+
 end
+
+
