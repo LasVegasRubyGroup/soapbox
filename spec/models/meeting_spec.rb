@@ -66,13 +66,13 @@ describe Meeting do
     context 'when the user has given a kudo' do
       let(:topics) { [topic_with_kudo] }
 
-      specify { meeting.can_give_kudo?(user).should be_false }
+      specify { meeting.given_kudo?(user).should be_true }
     end
 
     context 'when the user has not given a kudo' do
       let(:topics) { [topic_without_kudo] }
 
-      specify { meeting.can_give_kudo?(user).should be_true }
+      specify { meeting.given_kudo?(user).should be_false }
     end
 
   end
