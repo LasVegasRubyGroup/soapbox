@@ -2,14 +2,12 @@ development:
   encoding: utf8
   adapter: postgresql
   database: soapbox_development
-  host: 127.0.0.1
   min_messages: warning
 
 test:
   encoding: utf8
   adapter: postgresql
   database: soapbox_test
-  host: 127.0.0.1
   min_messages: warning
 
  # development:
