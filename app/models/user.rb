@@ -23,11 +23,9 @@ class User < ActiveRecord::Base
   end
 
   def self.find_for_meetup_oauth(auth, signed_in_resource = nil)
-    user = User.where(provider: auth.provider, uid: auth.uid.to_s).first_or_create.tap do |u|
+    User.where(provider: auth.provider, uid: auth.uid.to_s).first_or_create do |u|
       u.name = auth.info.name
     end
-    user.set_organizer_flag(auth)
-    user
   end
 
   def voted_on?(topic)

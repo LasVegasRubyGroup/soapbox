@@ -1,12 +1,10 @@
 require 'spec_helper'
 
 describe User do
-  
+  let(:auth) { OpenStruct.new(provider: 'test', uid: '123456', info: OpenStruct.new(name: 'Joe Blow')) }
+
   describe '.find_for_meetup_oauth' do
-
     context 'when the user does not exist' do
-      let(:auth) { OpenStruct.new(provider: 'test', uid: '123456', info: OpenStruct.new(name: 'Joe Blow')) }
-
       before { Meetup::Profile.stub(:get).and_return({'role' => ''}) }
 
       it 'creates the user' do
@@ -30,24 +28,6 @@ describe User do
           User.find_by_name('Joe Blow').organizer.should be_false
         end
       end
-
-      context 'when the user is an organizer' do
-        before { Meetup::Profile.stub(:get).and_return({'role' => 'Organizer'}) }
-
-        it 'sets the user as an organizer' do
-          User.find_for_meetup_oauth(auth)
-          User.find_by_name('Joe Blow').organizer.should be_true
-        end
-      end
-
-      context 'when the user is a co-organizer' do
-        before { Meetup::Profile.stub(:get).and_return({'role' => 'Co-Organizer'}) }
-        
-        it 'sets the user as an organizer' do
-          User.find_for_meetup_oauth(auth)
-          User.find_by_name('Joe Blow').organizer.should be_true
-        end
-      end
     end
 
     context 'when the user does exist' do
@@ -61,9 +41,28 @@ describe User do
       it 'does not create the user' do
         expect {User.find_for_meetup_oauth(auth)}.to_not change(User,:count)
       end
-
     end
-
   end
 
+  describe '.set_organizer_flag' do
+    let(:user) { User.create(name: 'Joe Blow') }
+
+    context 'when the user is an organizer' do
+      before { Meetup::Profile.stub(:get).and_return({'role' => 'Organizer'}) }
+
+      it 'sets the user as an organizer' do
+        user.set_organizer_flag(auth)
+        expect(user.organizer).to be_true
+      end
+    end
+
+    context 'when the user is a co-organizer' do
+      before { Meetup::Profile.stub(:get).and_return({'role' => 'Co-Organizer'}) }
+
+      it 'sets the user as an organizer' do
+        user.set_organizer_flag(auth)
+        expect(user.organizer).to be_true
+      end
+    end
+  end
 end
