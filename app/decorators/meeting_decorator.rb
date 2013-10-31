@@ -13,7 +13,7 @@ class MeetingDecorator < Draper::Decorator
   end
 
   def kudo_links_for(current_user)
-    if kudos_available?(Time.current, current_user)
+    if kudos_available?(current_user)
       h.render 'kudo_links'
     end
   end
