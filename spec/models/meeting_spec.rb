@@ -53,12 +53,26 @@ describe Meeting do
   end
 
   describe '#can_give_kudo?' do
-    include_context "full meeting setup"
+    subject(:meeting) { Meeting.new }
+    let(:user) { double(:user) }
+    let(:topic_with_kudo) { double(:topic, given_kudo?: true) }
+    let(:topic_without_kudo) { double(:topic, given_kudo?: false) }
+
+   
+    before do
+      meeting.stub(:topics).and_return(topics)
+    end
 
     context 'when the user has given a kudo' do
-      before { topic1.give_kudo_as(user) ; meeting.reload }
+      let(:topics) { [topic_with_kudo] }
 
       specify { meeting.can_give_kudo?(user).should be_false }
+    end
+
+    context 'when the user has not given a kudo' do
+      let(:topics) { [topic_without_kudo] }
+
+      specify { meeting.can_give_kudo?(user).should be_true }
     end
 
   end
@@ -75,55 +89,33 @@ describe Meeting do
   describe '#kudos_available?' do
     include_context "full meeting setup"
 
-    context 'when meeting already has kudos set to be open' do
-      specify 'at anytime, allows kudos' do
-        meeting.open_kudos!
-        meeting.kudos_available?(Time.now, user).should be_true
-      end
-    end
+    context 'when kudos are set to open' do
+      before { meeting.open_kudos! }
 
-    let(:at_time) { Time.local(on_date.year, on_date.month, on_date.day, 19,50) }
-
-    context 'at the inappropriate time' do
-      let(:at_time) { Time.local(on_date.year, on_date.month, on_date.day, 19,44) }
-      specify { meeting.kudos_available?(at_time, user).should be_false }
-    end
-
-    context 'at the appropriate time' do
       context 'when the user has not voted' do
         specify do
-          Timecop.freeze(at_time) do
-            meeting.kudos_available?(Time.now, user).should be_true
-          end
+          meeting.kudos_available?(user).should be_true
         end
       end
 
       context 'when the user has voted' do
         before { meeting.give_kudo(meeting.topics[0], user) ; meeting.reload }
         specify do
-          Timecop.freeze(at_time) do
-            meeting.kudos_available?(at_time, user).should be_false
-          end
+          meeting.kudos_available?(user).should be_false
         end
       end
     end
 
-    context 'when on the wrong date' do
-      let(:at_time) { Time.local(yesterday.year, yesterday.month, yesterday.day, 19,50) }
-      let(:yesterday) { 1.day.ago }
+    context 'prior to kudos being set to open' do
       specify do
-        Timecop.freeze(at_time) do
-          meeting.kudos_available?(at_time, user).should be_false
-        end
+        meeting.kudos_available?(user).should be_false
       end
     end
 
     context 'when the meeting is closed' do
       before { meeting.state = 'closed' }
       specify do
-        Timecop.freeze(at_time) do
-          meeting.kudos_available?(at_time, user).should be_false
-        end
+        meeting.kudos_available?(user).should be_false
       end
     end
   end

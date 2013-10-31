@@ -50,28 +50,17 @@ describe Topic do
     end
   end
 
-  describe '#can_add_kudo?' do
+  describe '#given_kudo?' do
     let(:current_user) { create(:user) }
     let(:topic) { create(:topic) }
-    let(:meeting) { stub(:meeting, open?: true) }
 
-    before { topic.stub(meeting: meeting) }
-
-    context 'when the meeting is open' do
-      context 'when the user has a kudo to give' do
-        specify { topic.can_add_kudo?(current_user).should be_true }
-      end
-
-      context 'when the user does not have a kudo to give' do
-        before { topic.give_kudo_as(current_user) }
-        specify { topic.can_add_kudo?(current_user).should be_false }
-      end
+    context 'when the user has a kudo to give' do
+      specify { topic.given_kudo?(current_user).should be_false }
     end
 
-    context 'when the meeting is not open' do
-      let(:meeting) { stub(:meeting, open?: false) }
-
-      specify { topic.can_add_kudo?(current_user).should be_false }
+    context 'when the user does not have a kudo to give' do
+      before { topic.give_kudo_as(current_user) }
+      specify { topic.given_kudo?(current_user).should be_true }
     end
   end
 

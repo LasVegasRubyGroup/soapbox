@@ -15,22 +15,17 @@ describe MeetingDecorator do
   end
 
   describe '#kudo_links_for' do
-    before { Time.stub(:now).and_return(at_time) }
 
     context 'when kudos are available', :full_meeting do
-      let(:at_time) { Time.local(on_date.year, on_date.month, on_date.day, 19,50) }
+      before { meeting.open_kudos! }
 
       it 'displays kudo links' do
-        Timecop.freeze(at_time) do
-          h.should_receive(:render).with('kudo_links')
-          decorator.kudo_links_for(user)
-        end
+        h.should_receive(:render).with('kudo_links')
+        decorator.kudo_links_for(user)
       end
     end
 
     context 'when kudos are not available', :full_meeting do
-      let(:at_time) { Time.local(on_date.year, on_date.month, on_date.day, 19,00) }
-
       it 'displays kudo links' do
         h.should_not_receive(:render).with('kudo_links')
         decorator.kudo_links_for(user)
