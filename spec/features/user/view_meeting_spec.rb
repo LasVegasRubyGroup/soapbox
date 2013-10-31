@@ -50,26 +50,20 @@ describe "A meeting detail page, with 3 time slots, each with a topic" do
       end
 
       it "should not display kudos action" do
-
         page.should_not have_selector(:css, ".kudos")
       end
     end
 
     context "when the voting is open and user" do
-      let(:at_time) { Time.local(on_date.year, on_date.month, on_date.day, 19,50) }
- 
       before do
-        Time.stub(:now).and_return(at_time)
-        meeting.update_attributes(state: 'open')
+        meeting.open_kudos!
         signin_as(user)
       end
 
       context 'when the user has not voted yet' do
         it "should display kudos action" do
-          Timecop.freeze(at_time) do
-            visit meeting_path(meeting)
-            page.should have_selector(:css, ".kudos")
-          end
+          visit meeting_path(meeting)
+          page.should have_selector(:css, ".kudos")
         end
       end
 
