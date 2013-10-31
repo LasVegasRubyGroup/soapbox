@@ -74,9 +74,8 @@ class Meeting < ActiveRecord::Base
     end
   end
 
-  def kudos_available?(time, user)
-    return false unless kudos_period_open?(time)
-    can_give_kudo?(user)
+  def kudos_available?(user)
+    kudos_open? && can_give_kudo?(user)
   end
 
   def give_kudo(topic, user)
@@ -84,13 +83,6 @@ class Meeting < ActiveRecord::Base
   end
 
   def can_give_kudo?(user)
-    topics.all?{ |t| t.can_add_kudo?(user) }
-  end
-
-  def kudos_period_open?(time)
-    return true if kudos_open? && open?
-    time.to_date == date.to_date &&
-    ((time.hour == 19 && time.min >= 45) ||
-      (time.hour > 19 && time.hour < 20)) && open?
+    topics.none?{ |t| t.given_kudo?(user) }
   end
 end
