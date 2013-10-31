@@ -65,16 +65,14 @@ class Topic < ActiveRecord::Base
   end
 
   def give_kudo_as(user)
-    return false unless can_add_kudo?(user)
+    return kudo_given_error if given_kudo?(user)
     Kudo.create!(topic: self, user: user)
   rescue ActiveRecord::RecordInvalid
     add_kudo_error("we've reported this to Alex Peachey, cheating asshole.")
   end
 
-  def can_add_kudo?(user)
-    return add_kudo_error('too late, asshole.') unless meeting.open?
-    return true unless user_ids.include?(user.id)
-    add_kudo_error("we've reported this to Alex Peachey, cheating asshole.")
+  def given_kudo?(user)
+    return true if user_ids.include?(user.id)
   end
 
 private
@@ -82,6 +80,10 @@ private
   def add_kudo_error(message)
     errors.add :kudos, message
     false
+  end
+
+  def kudo_given_error
+    add_kudo_error("we've reported this to Alex Peachey, cheating asshole.")
   end
 
 end
