@@ -18,13 +18,6 @@ describe Meeting do
     end
   end
 
-  describe '#close_kudos!' do
-    it 'sets the meeting to be closed for kudos' do
-      subject.close_kudos!
-      subject.should_not be_kudos_open
-    end
-  end
-
   context '#finalize_and_reward' do
     it 'finalizes the meeting' do
       subject.should_receive(:finalize!)
@@ -40,16 +33,6 @@ describe Meeting do
       subject.should_receive(:give_points!)
       subject.finalize_and_reward!
     end
-
-    it 'closes kudos' do
-      subject.should_receive(:close_kudos!)
-      subject.finalize_and_reward!
-    end
-  end
-
-  describe 'mark meeting selected after finalizing' do
-    # subject { Meeting.prototype }
-    # binding.pry
   end
 
   describe '#can_give_kudo?' do
@@ -58,7 +41,6 @@ describe Meeting do
     let(:topic_with_kudo) { double(:topic, given_kudo?: true) }
     let(:topic_without_kudo) { double(:topic, given_kudo?: false) }
 
-   
     before do
       meeting.stub(:topics).and_return(topics)
     end

@@ -9,11 +9,12 @@ class Meeting < ActiveRecord::Base
   accepts_nested_attributes_for :time_slots
 
   state_machine initial: :open do
-    state :open
-    state :closed
+    event :open_kudos do
+      transition :open => :kudos_open
+    end
 
     event :finalize do
-      transition to: :closed, from: [:open]
+      transition [:open, :kudos_open] => :closed
     end
   end
 
@@ -39,11 +40,7 @@ class Meeting < ActiveRecord::Base
   end
 
   def open_kudos!
-    self.update_attribute(:kudos_open, true)
-  end
-
-  def close_kudos!
-    self.update_attribute(:kudos_open, false)
+    self.open_kudos
   end
 
   def mark_topics_closed!
@@ -69,7 +66,6 @@ class Meeting < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       finalize!
       mark_topics_closed!
-      close_kudos!
       give_points!
     end
   end
