@@ -39,7 +39,7 @@ group :development, :test, :staging do
   gem 'database_cleaner', '0.7.0'
   gem 'ffaker'
   gem 'pry-rails'
-  gem 'pry-debugger'
+  # gem 'pry-debugger'
   gem 'timecop'
 end
 
