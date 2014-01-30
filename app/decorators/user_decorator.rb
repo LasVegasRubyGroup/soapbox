@@ -21,7 +21,7 @@ class UserDecorator < Draper::Decorator
 
   def new_meeting_link
     if organizer
-      h.link_to('Create Meeting', h.new_meeting_path)
+      h.link_to('Create Meeting', h.templates_meetings_path)
     end
   end
 

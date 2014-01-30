@@ -1,27 +1,27 @@
 .row
   .span6
-    =simple_form_for @meeting, html: { class: 'form-horizontal meeting_form'} do |f|
+    = simple_form_for(@meeting, html: { class: 'form-horizontal meeting_form' }) do |f|
       %legend Meeting
       = f.input(:date, as: :string)
 
       - i = 0
-      = f.simple_fields_for :time_slots do |f|
+      = f.simple_fields_for(:time_slots) do |f|
         %fieldset.time_slot
           %legend Slot #{i + 1}
           = f.input(:starts_at)
           = f.input(:ends_at)
-          = f.input(:topic_id, as: :hidden, input_html: {class: 'topic_id'})
+          = f.input(:topic_id, as: :hidden, input_html: { class: 'topic_id' })
           = select_tag('presenters')
-          = f.input(:presenter_id, as: :hidden, input_html: {class: 'presenter_id'})
+          = f.input(:presenter_id, as: :hidden, input_html: { class: 'presenter_id' })
           .topic_title
 
         - i += 1
-      
+
       = f.submit
 
   .span6.scrolling_list_container
     %ul.scrolling_list{ data: { spy: "affix" } }
-      = render(partial: 'topics/simple_topic', collection: @topics, as: 'topic')
+      = render(partial: 'topics/simple_topic', collection: @topics, as: :topic)
 
 :javascript
   window.all_users = #{all_user_list}

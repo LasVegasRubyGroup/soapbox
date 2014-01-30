@@ -22,7 +22,7 @@ class Meeting < ActiveRecord::Base
     order('date DESC')
   end
 
-  def self.prototype(on_date=(Date.today + 2.weeks))
+  def self.prototype(on_date = (Date.today + 2.weeks))
     self.new(
       date: on_date,
       time_slots_attributes: [
@@ -31,6 +31,12 @@ class Meeting < ActiveRecord::Base
         { starts_at: '7:20 PM', ends_at: '7:50 PM' }
       ]
     )
+  end
+
+  def self.prototype_with_time_slots(time_slots, on_date = (Date.today + 2.weeks))
+    self.new(
+      date: on_date,
+      time_slots_attributes: time_slots)
   end
 
   def update_topics

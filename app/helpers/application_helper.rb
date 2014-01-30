@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def kudos_prompt
-    if Meeting.last.kudos_available?(current_user)
+    if Meeting.last.try(:kudos_available?, current_user)
       render 'shared/kudos_prompt'
     end
   end

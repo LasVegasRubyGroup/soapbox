@@ -18,6 +18,10 @@ Soapbox::Application.routes.draw do
   end
 
   resources :meetings do
+    collection do
+      get :templates
+    end
+
     member do
       get :open_kudos
       put :finalize

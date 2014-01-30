@@ -1,15 +1,19 @@
 class MeetingsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
   before_filter :require_organizer, except: [:index, :show]
-  before_filter :load_topics, except: [:index, :show]
-  before_filter :load_meeting, except: [:index, :create, :new]
+  before_filter :load_topics, except: [:index, :show, :templates]
+  before_filter :load_meeting, except: [:index, :create, :new, :templates]
 
   def index
     @meetings = Meeting.by_date
   end
 
+  def templates
+  end
+
   def new
-    @meeting = Meeting.prototype
+    @meeting = Meeting.prototype_with_time_slots(
+      time_slots_for_prototype(params[:prototype]))
   end
 
   def create
@@ -66,5 +70,24 @@ private
         "#{participant[:name]} awarded #{participant[:points]} points!"
       end
     end.join('<br>').html_safe
+  end
+
+  def time_slots_for_prototype(prototype)
+    case prototype
+    when 'traditional'
+      [
+        { starts_at: '6:20 PM', ends_at: '6:50 PM' },
+        { starts_at: '7:00 PM', ends_at: '7:30 PM' },
+        { starts_at: '7:30 PM', ends_at: '8:00 PM' }
+      ]
+    when 'lightning'
+      [
+        { starts_at: '6:20 PM', ends_at: '6:50 PM' },
+        { starts_at: '7:00 PM', ends_at: '7:30 PM' },
+        { starts_at: '7:30 PM', ends_at: '7:40 PM' },
+        { starts_at: '7:40 PM', ends_at: '7:50 PM' },
+        { starts_at: '7:50 PM', ends_at: '8:00 PM' }
+      ]
+    end
   end
 end
