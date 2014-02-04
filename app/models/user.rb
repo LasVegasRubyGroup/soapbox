@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
 
   def set_organizer_flag(auth)
     profile = Meetup::Profile.get(auth.uid)
-    organizer = (profile['role'] == 'Co-Organizer' || profile['role'] == 'Organizer')
+    organizer = (profile['role'] == 'Co-Organizer' || profile['role'] == 'Organizer' || profile['profile'] == 'Event Organizer')
     update_attribute(:organizer, organizer)
   end
 end
