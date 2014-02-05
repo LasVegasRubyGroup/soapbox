@@ -77,14 +77,14 @@ class Meeting < ActiveRecord::Base
   end
 
   def kudos_available?(user)
-    kudos_open? && can_give_kudo?(user)
+    kudos_open? && !given_kudo?(user)
   end
 
   def give_kudo(topic, user)
     Kudo.create!(topic: topic, user: user)
   end
 
-  def can_give_kudo?(user)
-    topics.none?{ |t| t.given_kudo?(user) }
+  def given_kudo?(user)
+    topics.any?{ |t| t.given_kudo?(user) }
   end
 end
